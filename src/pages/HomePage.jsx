@@ -1,10 +1,12 @@
 import React from 'react';
+import Button from '@mui/material/Button';
 
 const HomePage = () => {
 
-
   return (
-    <div>HomePage</div>
+    <>
+    <Button variant="contained">Order</Button>
+    </>
   )
 }
 
