@@ -5,7 +5,9 @@ Website for Ekalo's matcha
 ## Tech stack 
 React - frontend library
 Vite  - build tool
+Charkra UI - Component library 
 json-server - npm module to mock backend server
+Glitch - platform to host json server
 
 ## Dev Instructions
 1. clone project
