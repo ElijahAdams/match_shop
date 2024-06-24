@@ -17,3 +17,15 @@ h1 {
   line-height: 1.1;
 }
 
+.navbar__navlink {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+.navbar__navlink:hover {
+ background-color: lightgray;
+}
+.navbar__active-link {
+  background-color: gray;
+}
