@@ -1,14 +1,10 @@
-import React from 'react'
+import { React, useState } from 'react'
 import { 
   Box,
   Button, 
   Flex, 
   Grid, 
   IconButton, 
-  Menu,
-  MenuButton, 
-  MenuItem, 
-  MenuList, 
   Spacer, 
 } from '@chakra-ui/react'
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
@@ -16,16 +12,19 @@ import { NavLink } from 'react-router-dom';
 
 const NAV_ITEMS = [
   {
+    key: 'discover_matcha',
     label: 'Discover Matcha',
-    href: '#'
+    href: '/'
   },
   {
+    key: 'order',
     label: 'Order',
-    href: '#'
+    href: '/order'
   },
   {
-    label: 'About',
-    href: '#',
+    key: 'about',
+    label: 'About Us',
+    href: '/about',
   },
 ]
 let activeStyle = ({ isActive }) => {return isActive ? 
@@ -43,15 +42,11 @@ const DesktopNav = () => {
           </NavLink>
         </Box>
         <Flex h="100%" alignItems="center">
-            <NavLink end to="/" className={(activeStyle)}>
-              Discover Matcha
+          {NAV_ITEMS.map(navItem => (
+            <NavLink to={navItem.href} key={navItem.key} className={(activeStyle)}>
+              {navItem.label}
             </NavLink>
-            <NavLink end to="/order" className={activeStyle}>
-              Order
-            </NavLink>
-            <NavLink end to="/about" className={activeStyle}>
-              About Us
-            </NavLink>
+          ))}
         </Flex>
       </Flex>
       <Spacer />
@@ -66,34 +61,19 @@ const DesktopNav = () => {
 }
 
 const MobileNav = () => {
+  const [display, changeDisplay] = useState('none')
   return (
     <>
+    {/* Mobile Nav header section */}
       <Flex w="100%" alignItems="center">
-        <Menu>
-          <MenuButton     
-            as={IconButton}
-            variant={"ghost"}
-            aria-label={"Toggle Navigation"}
-            icon={<HamburgerIcon />}>
-          </MenuButton>
-          <MenuList>
-            <MenuItem>            
-              <NavLink end to="/" >
-                  Discover Matcha
-              </NavLink>
-            </MenuItem>
-            <MenuItem>
-              <NavLink end to="/order" >
-                Order
-              </NavLink>
-            </MenuItem>
-            <MenuItem>
-              <NavLink end to="/about">
-                About Us
-              </NavLink>
-            </MenuItem>
-          </MenuList>
-        </Menu>
+        <IconButton
+            aria-label="Open Menu"
+            size="lg"
+            icon={
+              <HamburgerIcon />
+            }
+            onClick={() => changeDisplay('flex')}
+          />
         <Spacer />
         <Box>          
           <NavLink end to="/" >
@@ -103,9 +83,51 @@ const MobileNav = () => {
         <Spacer />
         <Box>test</Box>
       </Flex>
+
+      {/* Mobile nav content */}
+      <Flex
+        w='100%'
+        display={display}
+        bgColor="gray.50"
+        zIndex={10}
+        h="100vh"
+        pos="fixed"
+        top="0"
+        left="0"
+        overflowY="auto"
+        flexDir="column"
+      >
+        <Flex pl="10px" pr="10px" pt="13.5px">
+          <IconButton
+            aria-label="close Menu"
+            size="lg"
+            icon={
+              <CloseIcon />
+            }
+            onClick={() => changeDisplay('none')}
+          />
+        </Flex>
+        <Flex flexDir="column" align="center">
+          {NAV_ITEMS.map(navItem => (
+            <Button
+              key={navItem.key}
+              className="navbar__navlink"
+              variant="ghost"
+              aria-label={navItem.label}
+              w="100%"
+              onClick={() => changeDisplay('none')}
+            >
+              <NavLink to={navItem.href} >
+                {navItem.label}
+              </NavLink>
+            </Button>
+          ))}
+        </Flex>
+      </Flex>
     </>
   )
 }
+
 const Navbar = () => {
   return (
     <>
