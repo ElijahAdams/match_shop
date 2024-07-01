@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-
+import { CircularProgress, Fade, Flex, SimpleGrid } from '@chakra-ui/react';
+import Card from '../components/Card'
 const OrderPage = () => {
 const [menuItems, setMenuItems] = useState([]);
 const [isLoading, setIsLoading] = useState(false);
@@ -23,9 +24,21 @@ useEffect(() => {
 
   return (
     <>
+    
     {isLoading ? 
-      <h1> ... </h1> : 
-      (<div>{menuItems.map((menuItem) => (<h1 key={menuItem.name}>{menuItem.name} </h1>) )}</div>)
+      <Flex w="100%" h="100vh" justifyContent="center" mt="30px">
+        <CircularProgress isIndeterminate color='green.300' />
+      </Flex> : 
+      (<div>
+        <SimpleGrid p="30px" spacing="15px" minChildWidth={{sm: "300px", md: "400px"}}>
+          {menuItems.map((menuItem) => (
+            <Fade key={menuItem.name} in={!isLoading} transition={{enter: { duration: 0.5 }}}>
+              <Card menuItem={menuItem}/>
+            </Fade>
+          ))}
+          
+        </SimpleGrid>
+      </div>)
     }
     </>
   )

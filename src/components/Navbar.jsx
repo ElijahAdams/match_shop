@@ -89,8 +89,7 @@ const MobileNav = () => {
       {/* Mobile nav content */}
       <Collapse in={isOpen} >
         <Flex
-          w='100%'
-        
+          w="100%"
           bgColor="gray.50"
           zIndex={10}
           h="100vh"
