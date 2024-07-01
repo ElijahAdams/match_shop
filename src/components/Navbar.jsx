@@ -2,10 +2,12 @@ import { React, useState } from 'react'
 import { 
   Box,
   Button, 
+  Collapse,
   Flex, 
   Grid, 
   IconButton, 
   Spacer, 
+  useDisclosure
 } from '@chakra-ui/react'
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
 import { NavLink } from 'react-router-dom';
@@ -61,7 +63,7 @@ const DesktopNav = () => {
 }
 
 const MobileNav = () => {
-  const [display, changeDisplay] = useState('none')
+  const {isOpen, onToggle } = useDisclosure()
   return (
     <>
     {/* Mobile Nav header section */}
@@ -72,7 +74,7 @@ const MobileNav = () => {
             icon={
               <HamburgerIcon />
             }
-            onClick={() => changeDisplay('flex')}
+            onClick={() => onToggle()}
           />
         <Spacer />
         <Box>          
@@ -85,45 +87,47 @@ const MobileNav = () => {
       </Flex>
 
       {/* Mobile nav content */}
-      <Flex
-        w='100%'
-        display={display}
-        bgColor="gray.50"
-        zIndex={10}
-        h="100vh"
-        pos="fixed"
-        top="0"
-        left="0"
-        overflowY="auto"
-        flexDir="column"
-      >
-        <Flex pl="10px" pr="10px" pt="13.5px">
-          <IconButton
-            aria-label="close Menu"
-            size="lg"
-            icon={
-              <CloseIcon />
-            }
-            onClick={() => changeDisplay('none')}
-          />
+      <Collapse in={isOpen} >
+        <Flex
+          w='100%'
+        
+          bgColor="gray.50"
+          zIndex={10}
+          h="100vh"
+          pos="fixed"
+          top="0"
+          left="0"
+          overflowY="auto"
+          flexDir="column"
+        >
+          <Flex pl="10px" pr="10px" pt="13.5px">
+            <IconButton
+              aria-label="close Menu"
+              size="lg"
+              icon={
+                <CloseIcon />
+              }
+              onClick={() => onToggle()}
+            />
+          </Flex>
+          <Flex flexDir="column" align="center">
+            {NAV_ITEMS.map(navItem => (
+              <Button
+                key={navItem.key}
+                className="navbar__navlink"
+                variant="ghost"
+                aria-label={navItem.label}
+                w="100%"
+                onClick={() => onToggle()}
+              >
+                <NavLink to={navItem.href} >
+                  {navItem.label}
+                </NavLink>
+              </Button>
+            ))}
+          </Flex>
         </Flex>
-        <Flex flexDir="column" align="center">
-          {NAV_ITEMS.map(navItem => (
-            <Button
-              key={navItem.key}
-              className="navbar__navlink"
-              variant="ghost"
-              aria-label={navItem.label}
-              w="100%"
-              onClick={() => changeDisplay('none')}
-            >
-              <NavLink to={navItem.href} >
-                {navItem.label}
-              </NavLink>
-            </Button>
-          ))}
-        </Flex>
-      </Flex>
+      </Collapse>
     </>
   )
 }
