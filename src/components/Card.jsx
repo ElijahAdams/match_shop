@@ -1,7 +1,32 @@
-import React from 'react'
+import {React, useState} from 'react'
 import { Button, ButtonGroup, Card as CharkraCard, CardBody, CardFooter, Flex, Heading, Image, Stack, Text } from '@chakra-ui/react';
+import CustomizeModal from './CustomizeModal';
 
 const Card = ({menuItem}) => {
+
+  const [isOpen, setIsOpen] = useState(false);
+  const showCustomizeBtn = menuItem.menutItemConfig.length > 0;
+
+  /**
+   * opens the customization modal
+   */
+  const onCustomize = (item) => { 
+    setIsOpen(true);
+  }
+  /**
+   * Close the customization modal
+   */
+  const onClose = () => {
+    setIsOpen(false);
+  }
+
+  /**
+   * Adds the item to the cart
+   */
+  const onAdd = (item) => {
+    console.log(item)
+  }
+  
   return (
    <>
     <CharkraCard minW="285px" type="outline">
@@ -29,15 +54,25 @@ const Card = ({menuItem}) => {
       </CardBody>
       <CardFooter>
         <ButtonGroup spacing='2'>
-          <Button variant='solid' colorScheme='blue'>
+          <Button 
+            variant='solid' 
+            colorScheme='blue'
+            onClick={() => onAdd(menuItem)}>
             Add to Cart
           </Button>
-          <Button variant='ghost' colorScheme='blue'>
-            Customize
-          </Button>
+          { showCustomizeBtn &&
+            <Button 
+              variant='ghost' 
+              colorScheme='blue' 
+              onClick={() => onCustomize(menuItem)}>
+              Customize
+            </Button>
+          }
         </ButtonGroup>
       </CardFooter>
     </CharkraCard>
+    <CustomizeModal isOpen={isOpen} onClose={onClose} menuItem={menuItem} />
+
    </>
   )
 }
