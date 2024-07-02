@@ -1,6 +1,7 @@
 import React from 'react'
 import {
   Button,
+  Image,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -9,23 +10,34 @@ import {
   ModalBody,
   ModalCloseButton,
 } from '@chakra-ui/react'
+import Customizations from './Customizations'
 
 const CustomizeModal = ({isOpen, onClose, menuItem}) => {
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} size="lg">
+      <Modal isOpen={isOpen} onClose={onClose} size={["full", "lg"]} >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Customize {menuItem.name}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            test
+            <Image
+              objectFit="cover"
+              h={["250px","350px"]}
+              w="100%"
+              src={menuItem.photoUrl}
+              alt={menuItem.alt}
+              borderRadius='lg'
+            />
+            <Customizations menuItemConfigs={menuItem.menutItemConfig} />
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='blue' mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button >Add to Cart</Button>
+            <Button onClick={onClose} >
+              Add to Cart
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
