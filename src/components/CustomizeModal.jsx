@@ -19,7 +19,11 @@ const CustomizeModal = ({isOpen, onClose, menuItem}) => {
   }
 
   const addToCart = () => {
-    console.log(customizations);
+    const itemToAdd = {
+      name: menuItem.name,
+      details: customizations
+    }
+    console.log(itemToAdd);
     onClose();
   }
 
@@ -39,7 +43,7 @@ const CustomizeModal = ({isOpen, onClose, menuItem}) => {
               alt={menuItem.alt}
               borderRadius='lg'
             />
-            <Customizations menuItemConfigs={menuItem.menutItemConfig} onCustomizationUpdate={onCustomizationUpdate}/>
+            <Customizations menuItemConfigs={menuItem.menutItemConfigs} onCustomizationUpdate={onCustomizationUpdate}/>
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='blue' mr={3} onClick={onClose}>

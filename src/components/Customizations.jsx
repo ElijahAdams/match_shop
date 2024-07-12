@@ -12,6 +12,8 @@ import {
   Switch,
   Spacer
 } from '@chakra-ui/react'
+import { getMenuItemCustomizations } from '../utils/MenuItemUtil';
+
 const Customizations = ({menuItemConfigs, onCustomizationUpdate}) => {
   /**
    * Check the type of menu item. menuItemConfigs[].componentType
@@ -42,11 +44,7 @@ const Customizations = ({menuItemConfigs, onCustomizationUpdate}) => {
    */
   
   // Set Default Customization value
-  const defaultCustomization =  {};
-  menuItemConfigs.map(menuItemConfig => {
-      defaultCustomization[menuItemConfig.label] = menuItemConfig.defaultValue;
-   });
-
+  const defaultCustomization =  getMenuItemCustomizations(menuItemConfigs);
   const [customizations, setCustomizations] = useState(defaultCustomization);
 
   /**

@@ -1,11 +1,12 @@
 import {React, useState} from 'react'
 import { Button, ButtonGroup, Card as CharkraCard, CardBody, CardFooter, Flex, Heading, Image, Stack, Text } from '@chakra-ui/react';
 import CustomizeModal from './CustomizeModal';
+import { getMenuItemCustomizations } from '../utils/MenuItemUtil';
 
 const Card = ({menuItem}) => {
 
   const [isOpen, setIsOpen] = useState(false);
-  const showCustomizeBtn = menuItem.menutItemConfig.length > 0;
+  const showCustomizeBtn = menuItem.menutItemConfigs.length > 0;
 
   /**
    * opens the customization modal
@@ -24,7 +25,12 @@ const Card = ({menuItem}) => {
    * Adds the item to the cart
    */
   const onAdd = (item) => {
-    console.log(item)
+    const defaultCustomization = getMenuItemCustomizations(item.menutItemConfigs);
+    const itemToAdd = {
+      name: menuItem.name,
+      details: defaultCustomization
+    }
+    console.log(itemToAdd)
   }
   
   return (
