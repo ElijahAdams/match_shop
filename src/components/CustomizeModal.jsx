@@ -1,4 +1,4 @@
-import React from 'react'
+import { React, useState } from 'react'
 import {
   Button,
   Image,
@@ -13,6 +13,16 @@ import {
 import Customizations from './Customizations'
 
 const CustomizeModal = ({isOpen, onClose, menuItem}) => {
+  const [customizations, setCustomizations] = useState({});
+  const onCustomizationUpdate = (c) => {
+    setCustomizations(c);
+  }
+
+  const addToCart = () => {
+    console.log(customizations);
+    onClose();
+  }
+
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} size={["full", "lg"]} >
@@ -29,13 +39,13 @@ const CustomizeModal = ({isOpen, onClose, menuItem}) => {
               alt={menuItem.alt}
               borderRadius='lg'
             />
-            <Customizations menuItemConfigs={menuItem.menutItemConfig} />
+            <Customizations menuItemConfigs={menuItem.menutItemConfig} onCustomizationUpdate={onCustomizationUpdate}/>
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='blue' mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button onClick={onClose} >
+            <Button onClick={addToCart} >
               Add to Cart
             </Button>
           </ModalFooter>
