@@ -1,17 +1,19 @@
 import { React, useState } from 'react'
+import { FaCartShopping } from 'react-icons/fa6'
 import { 
+  Badge,
   Box,
   Button, 
   Collapse,
   Flex, 
   Grid, 
+  Icon,
   IconButton, 
   Spacer, 
   useDisclosure
 } from '@chakra-ui/react'
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
-import { NavLink } from 'react-router-dom';
-
+import { NavLink, useNavigate } from 'react-router-dom';
 const NAV_ITEMS = [
   {
     key: 'discover_matcha',
@@ -35,6 +37,7 @@ let activeStyle = ({ isActive }) => {return isActive ?
 };
 
 const DesktopNav = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Flex h="100%" alignItems="center">
@@ -53,9 +56,20 @@ const DesktopNav = () => {
       </Flex>
       <Spacer />
       <Flex>
-        <Grid templateColumns='repeat(2, 1fr)' gap={1}>
+        <Grid templateColumns='repeat(3, 1fr)' gap={1}>
           <Button>Sign Up</Button>
           <Button>Log In</Button>
+          <IconButton 
+            className="badge"
+            variant='outline'
+            colorScheme='blue'
+            aria-label="Go to Cart"
+            size="md"
+            value="5"
+            icon={
+              <Icon as={FaCartShopping} boxSize={6}/>
+            }
+            onClick={() => navigate("/cart")}/>
         </Grid>
       </Flex>
     </>

@@ -4,10 +4,12 @@ import HomePage from './pages/HomePage';
 import NotFoundPage from './pages/NotFoundPage';
 import OrderPage from './pages/OrderPage';
 import AboutUs from './pages/AboutUs';
+import Cart from './pages/Cart';
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+
 
 function App() {
   const router = createBrowserRouter(
@@ -16,6 +18,7 @@ function App() {
         <Route index element={<HomePage />}/>
         <Route path="/order" element={<OrderPage />}/>
         <Route path="/about" element={<AboutUs />}/>
+        <Route path="/cart" element={<Cart />}/>
         <Route path='*' element={<NotFoundPage />} />
       </Route>
     )
