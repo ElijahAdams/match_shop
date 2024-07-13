@@ -38,10 +38,7 @@ let activeStyle = ({ isActive }) => {return isActive ?
   'navbar__navlink'
 };
 
-const DesktopNav = () => {
-  const navigate = useNavigate();
-  const {cart, setCart} = useContext(CartContext);
-  const cartCount = cart.length;
+const DesktopNav = ({cart, navigate}) => {
   return (
     <>
       <Flex h="100%" alignItems="center">
@@ -69,7 +66,7 @@ const DesktopNav = () => {
             colorScheme='blue'
             aria-label="Go to Cart"
             size="md"
-            value={cartCount}
+            value={cart.length}
             icon={
               <Icon as={FaCartShopping} boxSize={6}/>
             }
@@ -80,7 +77,7 @@ const DesktopNav = () => {
   )
 }
 
-const MobileNav = () => {
+const MobileNav = ({cart, navigate}) => {
   const {isOpen, onToggle } = useDisclosure()
   return (
     <>
@@ -101,7 +98,17 @@ const MobileNav = () => {
           </NavLink>
         </Box>
         <Spacer />
-        <Box>test</Box>
+        <IconButton 
+            className="badge"
+            variant='ghost'
+            colorScheme='blue'
+            aria-label="Go to Cart"
+            size="md"
+            value={cart.length}
+            icon={
+              <Icon as={FaCartShopping} boxSize={6}/>
+            }
+            onClick={() => navigate("/cart")}/>
       </Flex>
 
       {/* Mobile nav content */}
@@ -150,15 +157,17 @@ const MobileNav = () => {
 }
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const {cart, setCart} = useContext(CartContext);
   return (
     <>
     <Flex borderBottom="1px" w="100%" h="75px" pl="10px" pr="10px" 
       color="black" alignItems="center" position="fixed" top="0" zIndex="1" background="white">
       <Flex display={{base: "flex", md: "none"}} w="100%" >
-        <MobileNav />
+        <MobileNav cart={cart} navigate={navigate}/>
       </Flex>
       <Flex display={{ base: "none", md: "flex" }} w="100%" >
-        <DesktopNav />
+        <DesktopNav cart={cart} navigate={navigate}/>
       </Flex>
     </Flex>
     </>
