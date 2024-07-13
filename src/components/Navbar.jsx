@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import { React, useContext, useState } from 'react'
 import { FaCartShopping } from 'react-icons/fa6'
 import { 
   Badge,
@@ -14,6 +14,8 @@ import {
 } from '@chakra-ui/react'
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
 import { NavLink, useNavigate } from 'react-router-dom';
+import { CartContext } from '../App';
+
 const NAV_ITEMS = [
   {
     key: 'discover_matcha',
@@ -38,6 +40,8 @@ let activeStyle = ({ isActive }) => {return isActive ?
 
 const DesktopNav = () => {
   const navigate = useNavigate();
+  const {cart, setCart} = useContext(CartContext);
+  const cartCount = cart.length;
   return (
     <>
       <Flex h="100%" alignItems="center">
@@ -61,11 +65,11 @@ const DesktopNav = () => {
           <Button>Log In</Button>
           <IconButton 
             className="badge"
-            variant='outline'
+            variant='ghost'
             colorScheme='blue'
             aria-label="Go to Cart"
             size="md"
-            value="5"
+            value={cartCount}
             icon={
               <Icon as={FaCartShopping} boxSize={6}/>
             }
@@ -148,7 +152,8 @@ const MobileNav = () => {
 const Navbar = () => {
   return (
     <>
-    <Flex borderBottom="1px" w="100%" h="75px" pl="10px" pr="10px" color="black" alignItems="center">
+    <Flex borderBottom="1px" w="100%" h="75px" pl="10px" pr="10px" 
+      color="black" alignItems="center" position="fixed" top="0" zIndex="1" background="white">
       <Flex display={{base: "flex", md: "none"}} w="100%" >
         <MobileNav />
       </Flex>

@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import { React, useContext, useState } from 'react'
 import {
   Button,
   Image,
@@ -11,9 +11,12 @@ import {
   ModalCloseButton,
 } from '@chakra-ui/react'
 import Customizations from './Customizations'
+import { CartContext } from '../App'
 
 const CustomizeModal = ({isOpen, onClose, menuItem}) => {
   const [customizations, setCustomizations] = useState({});
+  const {cart, setCart} = useContext(CartContext);
+
   const onCustomizationUpdate = (c) => {
     setCustomizations(c);
   }
@@ -23,7 +26,10 @@ const CustomizeModal = ({isOpen, onClose, menuItem}) => {
       name: menuItem.name,
       details: customizations
     }
-    console.log(itemToAdd);
+    setCart([
+      ...cart,
+      itemToAdd
+    ]);
     onClose();
   }
 

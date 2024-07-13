@@ -1,10 +1,11 @@
-import {React, useState} from 'react'
+import {React, useContext, useState} from 'react'
 import { Button, ButtonGroup, Card as CharkraCard, CardBody, CardFooter, Flex, Heading, Image, Stack, Text } from '@chakra-ui/react';
 import CustomizeModal from './CustomizeModal';
 import { getMenuItemCustomizations } from '../utils/MenuItemUtil';
+import { CartContext } from '../App';
 
 const Card = ({menuItem}) => {
-
+  const { cart, setCart } = useContext(CartContext);
   const [isOpen, setIsOpen] = useState(false);
   const showCustomizeBtn = menuItem.menutItemConfigs.length > 0;
 
@@ -30,7 +31,10 @@ const Card = ({menuItem}) => {
       name: menuItem.name,
       details: defaultCustomization
     }
-    console.log(itemToAdd)
+    setCart([
+      ...cart,
+      itemToAdd
+    ]);
   }
   
   return (

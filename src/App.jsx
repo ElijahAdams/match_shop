@@ -1,3 +1,4 @@
+import { createContext, useState } from 'react';
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/HomePage';
@@ -10,8 +11,12 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
+export const CartContext = createContext();
 
 function App() {
+  
+  const [cart, setCart] = useState([]);
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path='/' element={<MainLayout />}>
@@ -24,7 +29,9 @@ function App() {
     )
   );
   return (
-    <RouterProvider router={router} />
+    <CartContext.Provider value={{cart, setCart}} >
+      <RouterProvider router={router} />
+    </CartContext.Provider>
   )
 }
 
