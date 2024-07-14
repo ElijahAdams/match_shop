@@ -1,4 +1,4 @@
-import { React, useContext, useState } from 'react'
+import { React, useContext, useEffect, useState } from 'react'
 import { FaCartShopping } from 'react-icons/fa6'
 import { 
   Badge,
@@ -15,6 +15,7 @@ import {
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
 import { NavLink, useNavigate } from 'react-router-dom';
 import { CartContext } from '../App';
+import { countCartItems } from '../utils/CartUtil';
 
 const NAV_ITEMS = [
   {
@@ -38,7 +39,7 @@ let activeStyle = ({ isActive }) => {return isActive ?
   'navbar__navlink'
 };
 
-const DesktopNav = ({cart, navigate}) => {
+const DesktopNav = ({cartCount, navigate}) => {
   return (
     <>
       <Flex h="100%" alignItems="center">
@@ -66,7 +67,7 @@ const DesktopNav = ({cart, navigate}) => {
             colorScheme='blue'
             aria-label="Go to Cart"
             size="md"
-            value={cart.length}
+            value={cartCount}
             icon={
               <Icon as={FaCartShopping} boxSize={6}/>
             }
@@ -77,8 +78,8 @@ const DesktopNav = ({cart, navigate}) => {
   )
 }
 
-const MobileNav = ({cart, navigate}) => {
-  const {isOpen, onToggle } = useDisclosure()
+const MobileNav = ({cartCount, navigate}) => {
+  const {isOpen, onToggle } = useDisclosure();
   return (
     <>
     {/* Mobile Nav header section */}
@@ -104,7 +105,7 @@ const MobileNav = ({cart, navigate}) => {
             colorScheme='blue'
             aria-label="Go to Cart"
             size="md"
-            value={cart.length}
+            value={cartCount}
             icon={
               <Icon as={FaCartShopping} boxSize={6}/>
             }
@@ -159,15 +160,20 @@ const MobileNav = ({cart, navigate}) => {
 const Navbar = () => {
   const navigate = useNavigate();
   const {cart, setCart} = useContext(CartContext);
+  const [cartCount, setCartCount] = useState(0);
+  useEffect(() => {
+    setCartCount(countCartItems(cart));
+  }, [cart]);
+
   return (
     <>
     <Flex borderBottom="1px" w="100%" h="75px" pl="10px" pr="10px" 
       color="black" alignItems="center" position="fixed" top="0" zIndex="1" background="white">
       <Flex display={{base: "flex", md: "none"}} w="100%" >
-        <MobileNav cart={cart} navigate={navigate}/>
+        <MobileNav cartCount={cartCount} navigate={navigate}/>
       </Flex>
       <Flex display={{ base: "none", md: "flex" }} w="100%" >
-        <DesktopNav cart={cart} navigate={navigate}/>
+        <DesktopNav cartCount={cartCount} navigate={navigate}/>
       </Flex>
     </Flex>
     </>

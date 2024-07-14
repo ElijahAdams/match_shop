@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react'
 import Customizations from './Customizations'
 import { CartContext } from '../App'
+import { updateCart } from '../utils/CartUtil'
 
 const CustomizeModal = ({isOpen, onClose, menuItem}) => {
   const [customizations, setCustomizations] = useState({});
@@ -24,12 +25,11 @@ const CustomizeModal = ({isOpen, onClose, menuItem}) => {
   const addToCart = () => {
     const itemToAdd = {
       name: menuItem.name,
+      price: menuItem.initialPrice,
+      count: 1,
       details: customizations
     }
-    setCart([
-      ...cart,
-      itemToAdd
-    ]);
+    setCart(updateCart(cart, itemToAdd));
     onClose();
   }
 

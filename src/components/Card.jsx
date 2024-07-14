@@ -1,7 +1,7 @@
 import {React, useContext, useState} from 'react'
 import { Button, ButtonGroup, Card as CharkraCard, CardBody, CardFooter, Flex, Heading, Image, Stack, Text } from '@chakra-ui/react';
 import CustomizeModal from './CustomizeModal';
-import { getMenuItemCustomizations } from '../utils/MenuItemUtil';
+import { getMenuItemCustomizations, updateCart } from '../utils/CartUtil';
 import { CartContext } from '../App';
 
 const Card = ({menuItem}) => {
@@ -29,12 +29,11 @@ const Card = ({menuItem}) => {
     const defaultCustomization = getMenuItemCustomizations(item.menutItemConfigs);
     const itemToAdd = {
       name: menuItem.name,
+      price: menuItem.initialPrice,
+      count: 1, 
       details: defaultCustomization
-    }
-    setCart([
-      ...cart,
-      itemToAdd
-    ]);
+    };
+    setCart(updateCart(cart, itemToAdd));
   }
   
   return (

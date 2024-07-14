@@ -12,7 +12,7 @@ import {
   Switch,
   Spacer
 } from '@chakra-ui/react'
-import { getMenuItemCustomizations } from '../utils/MenuItemUtil';
+import { getMenuItemCustomizations } from '../utils/CartUtil';
 
 const Customizations = ({menuItemConfigs, onCustomizationUpdate}) => {
   /**
