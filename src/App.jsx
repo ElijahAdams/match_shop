@@ -14,8 +14,8 @@ import "@fontsource/roboto/700.css";
 export const CartContext = createContext();
 
 function App() {
-  
-  const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')));
+  const storageCart = JSON.parse(localStorage.getItem('cart')) ? JSON.parse(localStorage.getItem('cart')) : [];
+  const [cart, setCart] = useState(storageCart);
 
   const router = createBrowserRouter(
     createRoutesFromElements(

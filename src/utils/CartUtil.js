@@ -37,6 +37,22 @@ export function updateCart(cart, item) {
   ]
 }
 
+export function updateCartItem(cart, item) {
+  const originalCartCopy = cart.slice();
+
+  const itemIndex = originalCartCopy.findIndex(c => c.name === item.name && lodash.isEqual(c.details, item.details));
+
+  if(itemIndex > -1) {
+    originalCartCopy[itemIndex] = item;
+    return originalCartCopy;
+  } 
+
+  return [
+  ...originalCartCopy,
+  item
+  ]
+}
+
 export function countCartItems(cart) {
   let count = 0;
   if(cart.length ) {

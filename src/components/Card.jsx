@@ -29,6 +29,8 @@ const Card = ({menuItem}) => {
     const defaultCustomization = getMenuItemCustomizations(item.menutItemConfigs);
     const itemToAdd = {
       name: menuItem.name,
+      photoUrl: menuItem.photoUrl,
+      alt: menuItem.alt,
       price: menuItem.initialPrice,
       count: 1, 
       details: defaultCustomization

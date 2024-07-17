@@ -25,6 +25,8 @@ const CustomizeModal = ({isOpen, onClose, menuItem}) => {
   const addToCart = () => {
     const itemToAdd = {
       name: menuItem.name,
+      photoUrl: menuItem.photoUrl,
+      alt: menuItem.alt,
       price: menuItem.initialPrice,
       count: 1,
       details: customizations

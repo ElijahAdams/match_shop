@@ -30,7 +30,7 @@ useEffect(() => {
         <CircularProgress isIndeterminate color='green.300' />
       </Flex> : 
       (<div>
-        <SimpleGrid p="30px" spacing="15px" minChildWidth={{sm: "300px", md: "400px"}}>
+        <SimpleGrid pl="30px" pr="30px" spacing="15px" minChildWidth={{sm: "300px", md: "400px"}}>
           {menuItems.map((menuItem) => (
             <Fade key={menuItem.name} in={!isLoading} transition={{enter: { duration: 1.5 }}}>
               <Card menuItem={menuItem}/>
