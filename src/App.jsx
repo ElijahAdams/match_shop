@@ -15,7 +15,7 @@ export const CartContext = createContext();
 
 function App() {
   
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')));
 
   const router = createBrowserRouter(
     createRoutesFromElements(

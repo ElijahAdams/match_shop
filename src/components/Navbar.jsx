@@ -163,6 +163,7 @@ const Navbar = () => {
   const [cartCount, setCartCount] = useState(0);
   useEffect(() => {
     setCartCount(countCartItems(cart));
+    localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
   return (
