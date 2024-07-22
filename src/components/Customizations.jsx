@@ -84,8 +84,8 @@ const Customizations = ({menuItemConfigs, onCustomizationUpdate}) => {
   
   return (
     <>
-      {menuItemConfigs.map(menuItemConfig => (
-        <Stack key={menuItemConfig.label}>
+      {menuItemConfigs.map((menuItemConfig, index) => (
+        <Stack key={menuItemConfig.label + index}>
           <Spacer />  
           { menuItemConfig.componentType === "toggle" && 
             <>
