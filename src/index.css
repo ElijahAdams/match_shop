@@ -40,9 +40,18 @@ h1 {
   position:relative;
   left:-7.5px;
   top:-15px;
-  height: 15px;
-  width: 15px;
+  min-height: 15px;
+  min-width: 15px;
   align-items: center;
   justify-content: center;
   display: flex;
+  }
+
+  .countInput {
+    pointer-events: none;
+    width: 40px;
+    outline: black solid 1px;
+    padding: 8px;
+    border-radius: 10%;
+    text-align: center;
   }
