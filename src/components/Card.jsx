@@ -28,10 +28,11 @@ const Card = ({menuItem}) => {
   const onAdd = (item) => {
     const defaultCustomization = getMenuItemCustomizations(item.menutItemConfigs);
     const itemToAdd = {
-      name: menuItem.name,
-      photoUrl: menuItem.photoUrl,
+      productId: menuItem.productId,
+      name: menuItem.product.name,
+      photoUrl: menuItem.product.images[0],
       alt: menuItem.alt,
-      price: menuItem.initialPrice,
+      price: menuItem.product.default_price.substr(0, 10),
       count: 1, 
       details: defaultCustomization
     };
@@ -48,17 +49,17 @@ const Card = ({menuItem}) => {
             h="450px"
             w="100%"
             minW="250px"
-            src={menuItem.photoUrl}
+            src={menuItem.product.images[0]}
             alt={menuItem.alt}
             borderRadius='lg'
           />
           <Stack mt='6' spacing='3' alignSelf="flex-start">
-            <Heading size='md'>{menuItem.name}</Heading>
+            <Heading size='md'>{menuItem.product.name}</Heading>
             <Text>
-              {menuItem.description}
+              {menuItem.product.description}
             </Text>
             <Text color='blue.600' fontSize='2xl'>
-              ${menuItem.initialPrice}
+              ${menuItem.product.default_price.substr(0, 10)}
             </Text>
           </Stack>
         </Flex>

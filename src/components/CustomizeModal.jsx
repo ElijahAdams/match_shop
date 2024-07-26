@@ -9,6 +9,7 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Text
 } from '@chakra-ui/react'
 import Customizations from './Customizations'
 import { CartContext } from '../App'
@@ -24,10 +25,11 @@ const CustomizeModal = ({isOpen, onClose, menuItem}) => {
 
   const addToCart = () => {
     const itemToAdd = {
-      name: menuItem.name,
-      photoUrl: menuItem.photoUrl,
+      productId: menuItem.productId,
+      name: menuItem.product.name,
+      photoUrl: menuItem.product.images[0],
       alt: menuItem.alt,
-      price: menuItem.initialPrice,
+      price: menuItem.product.default_price.substr(0, 10),
       count: 1,
       details: customizations
     }
@@ -40,17 +42,20 @@ const CustomizeModal = ({isOpen, onClose, menuItem}) => {
       <Modal isOpen={isOpen} onClose={onClose} size={["full", "lg"]} >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Customize {menuItem.name}</ModalHeader>
+          <ModalHeader>Customize {menuItem.product.name}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Image
               objectFit="cover"
               h={["250px","350px"]}
               w="100%"
-              src={menuItem.photoUrl}
+              src={menuItem.product.images[0]}
               alt={menuItem.alt}
               borderRadius='lg'
             />
+            <Text color='blue.600' fontSize='2xl'>
+              ${menuItem.product.default_price.substr(0, 10)}
+            </Text>
             <Customizations menuItemConfigs={menuItem.menutItemConfigs} onCustomizationUpdate={onCustomizationUpdate}/>
           </ModalBody>
           <ModalFooter>
