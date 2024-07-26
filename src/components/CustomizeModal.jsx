@@ -29,7 +29,7 @@ const CustomizeModal = ({isOpen, onClose, menuItem}) => {
       name: menuItem.product.name,
       photoUrl: menuItem.product.images[0],
       alt: menuItem.alt,
-      price: menuItem.product.default_price.substr(0, 10),
+      price: menuItem.prices.unit_amount/100,
       count: 1,
       details: customizations
     }
@@ -54,7 +54,7 @@ const CustomizeModal = ({isOpen, onClose, menuItem}) => {
               borderRadius='lg'
             />
             <Text color='blue.600' fontSize='2xl'>
-              ${menuItem.product.default_price.substr(0, 10)}
+              ${menuItem.prices.unit_amount/100}
             </Text>
             <Customizations menuItemConfigs={menuItem.menutItemConfigs} onCustomizationUpdate={onCustomizationUpdate}/>
           </ModalBody>

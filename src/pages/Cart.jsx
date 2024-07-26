@@ -1,4 +1,4 @@
-import { React, useContext } from 'react'
+import { React, useCallback, useContext } from 'react'
 import { CartContext } from '../App';
 import { 
   Box, 
@@ -14,8 +14,25 @@ import {
   Image, Stack, Text } from '@chakra-ui/react';
 import { FaTrash } from "react-icons/fa";
 import { deleteItem, updateCartItem } from '../utils/CartUtil';
+import {loadStripe} from '@stripe/stripe-js';
+import {
+  EmbeddedCheckoutProvider,
+  EmbeddedCheckout
+} from '@stripe/react-stripe-js';
+const env = import.meta.env;
+const stripePromise = loadStripe(env.VITE_STRIPE_API_KEY);
+
 const Cart = () => {
   const {cart, setCart } = useContext(CartContext);
+
+  const fetchClientSecret = useCallback(() => {
+    // Create a Checkout Session
+    return fetch("/api/create-checkout-session", {
+        method: "POST",
+    }).then((res) => res.json())
+      .then((data) => data.clientSecret);
+  }, []);
+  const options = {fetchClientSecret};
 
   const incrementItemCount = (item) => {
       item.count = item.count + 1;
@@ -36,7 +53,12 @@ const Cart = () => {
     <Fade in={true} transition={{enter: { duration: 1.5 }}}>
       <Flex pl="30px" pr="30px" flexDirection={{base: "column-reverse", md: "row"}}>
         <Box w={{base: "100%", md: "50%"}}>
-          Checkout Integration
+        <EmbeddedCheckoutProvider
+          stripe={stripePromise}
+          options={options}
+        >
+          <EmbeddedCheckout />
+        </EmbeddedCheckoutProvider>
         </Box>
         <Box w={{base: "100%", md: "50%"}}>
           {cart.map((c, index) => (
