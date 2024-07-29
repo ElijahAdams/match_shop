@@ -30,6 +30,7 @@ const CustomizeModal = ({isOpen, onClose, menuItem}) => {
       photoUrl: menuItem.product.images[0],
       alt: menuItem.alt,
       price: menuItem.prices.unit_amount/100,
+      priceId: menuItem.prices.id,
       count: 1,
       details: customizations
     }
